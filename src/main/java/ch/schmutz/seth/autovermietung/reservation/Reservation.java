@@ -1,6 +1,7 @@
 package ch.schmutz.seth.autovermietung.reservation;
 
 import ch.schmutz.seth.autovermietung.fahrzeug.Fahrzeug;
+import ch.schmutz.seth.autovermietung.kunde.Kunde;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,4 +23,7 @@ public class Reservation {
 
     @ManyToOne(cascade = CascadeType.DETACH)
     private Fahrzeug fahrzeug;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Kunde kunde;
 }

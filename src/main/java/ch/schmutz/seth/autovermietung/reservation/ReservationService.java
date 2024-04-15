@@ -16,4 +16,8 @@ public class ReservationService {
     public List<Reservation> getReservations() {
         return repository.findByOrderById();
     }
+
+    public Reservation insertReservation(Reservation reservation) {
+        return repository.save(reservation);
+    }
 }
