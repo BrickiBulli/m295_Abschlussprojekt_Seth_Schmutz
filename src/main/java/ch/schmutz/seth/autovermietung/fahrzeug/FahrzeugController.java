@@ -24,13 +24,13 @@ public class FahrzeugController {
 
 
     @GetMapping("api/AlleFahrzeuge")
-    @RolesAllowed(Roles.Admin)
+    @RolesAllowed({Roles.Admin, Roles.User, Roles.Mitarbeiter})
     public List<Fahrzeug> GetFahrzeuge() {
         return fahrzeugService.getFahrzeuge();
     }
 
     @PostMapping("api/InsertFahrzeug")
-    @RolesAllowed(Roles.Admin)
+    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter})
     public ResponseEntity<Fahrzeug> insertFahrzeug(@Valid @RequestBody Fahrzeug fahrzeug) {
         Fahrzeug savedFahrzeug = fahrzeugService.insertFahrzeug(fahrzeug);
         return new ResponseEntity<>(savedFahrzeug, HttpStatus.OK);
