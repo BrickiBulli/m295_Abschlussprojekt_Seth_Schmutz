@@ -18,6 +18,9 @@ public class Kunde {
     private String nachName;
 
     @Column
+    private String keyCloakUser;
+
+    @Column
     private String versicherungsNr;
 
 }

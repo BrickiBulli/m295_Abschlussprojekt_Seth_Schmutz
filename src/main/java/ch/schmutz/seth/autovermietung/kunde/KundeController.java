@@ -6,11 +6,11 @@ import ch.schmutz.seth.autovermietung.security.Roles;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,4 +34,19 @@ public class KundeController {
     public Kunde kundenErstellen(@Valid @RequestBody Kunde kunde){
         return  kundeService.createKunde(kunde);
     }
+
+    @DeleteMapping("/api/KundeLöschen")
+    @RolesAllowed({Roles.User, Roles.Admin, Roles.Mitarbeiter})
+    public ResponseEntity<Kunde> kundeLöschen(@Valid @RequestBody Long kundeId){
+        Kunde kunde = kundeService.getKundenById(kundeId);
+        kundeService.deleteKundenById(kundeId);
+        return new ResponseEntity<>(kunde, HttpStatus.OK);
+    }
+
+    @PutMapping("/api/KundenUpdaten")
+    @RolesAllowed({Roles.User, Roles.Mitarbeiter, Roles.Admin})
+    public ResponseEntity<Kunde> kundenUpdaten(@Valid @RequestBody Kunde kunde){
+        return  new ResponseEntity<>(kundeService.updateKundenById(kunde.getId(), kunde), HttpStatus.OK);
+    }
+
 }

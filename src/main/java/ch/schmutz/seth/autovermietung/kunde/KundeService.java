@@ -23,4 +23,25 @@ public class KundeService {
     public Kunde createKunde(Kunde kunde) {
         return repository.save(kunde);
     }
+
+    public Kunde getKundenById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public void deleteKundenById(Long id) {
+        if(repository.existsById(id)) {
+            repository.deleteById(id);
+        }else{
+            throw new IllegalArgumentException("Kunde id: " + id + " nicht gefunden");
+        }
+    }
+
+    public Kunde updateKundenById(Long id, Kunde kunde) {
+        if(repository.existsById(id)){
+            return repository.save(kunde);
+        }
+        else{
+            throw new IllegalArgumentException("Kunde id: " + id + " nicht gefunden");
+        }
+    }
 }

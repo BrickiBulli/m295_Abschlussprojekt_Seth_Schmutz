@@ -1,5 +1,6 @@
 package ch.schmutz.seth.autovermietung.fahrzeug;
 
+import ch.schmutz.seth.autovermietung.schaeden.Schaden;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
@@ -34,5 +35,19 @@ public class FahrzeugController {
     public ResponseEntity<Fahrzeug> insertFahrzeug(@Valid @RequestBody Fahrzeug fahrzeug) {
         Fahrzeug savedFahrzeug = fahrzeugService.insertFahrzeug(fahrzeug);
         return new ResponseEntity<>(savedFahrzeug, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/DeleteFahrzeug")
+    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
+    public ResponseEntity<Fahrzeug> deleteReservation(@RequestBody Long id) {
+        Fahrzeug fahrzeug = fahrzeugService.findFahrzeugById(id);
+        fahrzeugService.deleteFahrzeugById(id);
+        return new ResponseEntity<>(fahrzeug, HttpStatus.OK);
+    }
+
+    @PutMapping("/api/FahrzeugUpdaten")
+    @RolesAllowed({Roles.User, Roles.Mitarbeiter, Roles.Admin})
+    public ResponseEntity<Fahrzeug> reservationUpdaten(@Valid @RequestBody Fahrzeug fahrzeug){
+        return  new ResponseEntity<>(fahrzeugService.updateFahrzeugById(fahrzeug.getId(), fahrzeug), HttpStatus.OK);
     }
 }
