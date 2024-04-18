@@ -24,19 +24,19 @@ public class SchadenController {
     SchadenController(SchadenService schadenService) {this.schadenService = schadenService;}
 
     @GetMapping("/api/AleSchaeden")
-    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter})
+    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
     public List<Schaden> alleSchaeden() {
         return schadenService.getSchaden();
     }
 
     @PostMapping("/api/InsertSchaden")
-    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
+    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter})
     public Schaden insertSchaden(@RequestBody Schaden schaden) {
         return schadenService.insertSchaden(schaden);
     }
 
     @DeleteMapping("/api/DeleteSchaden")
-    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
+    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter})
     public ResponseEntity<Schaden> deleteReservation(@RequestBody Long id) {
         Schaden schaden = schadenService.findSchadenById(id);
         schadenService.deleteSchadenById(id);
@@ -44,7 +44,7 @@ public class SchadenController {
     }
 
     @PutMapping("/api/SchadenUpdaten")
-    @RolesAllowed({Roles.User, Roles.Mitarbeiter, Roles.Admin})
+    @RolesAllowed({Roles.Mitarbeiter, Roles.Admin})
     public ResponseEntity<Schaden> reservationUpdaten(@Valid @RequestBody Schaden schaden){
         return  new ResponseEntity<>(schadenService.updateSchadenById(schaden.getId(), schaden), HttpStatus.OK);
     }

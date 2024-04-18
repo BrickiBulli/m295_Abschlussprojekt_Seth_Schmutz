@@ -24,7 +24,7 @@ public class KundeController {
     KundeController(KundeService kundeService) {this.kundeService = kundeService;}
 
     @GetMapping("api/AlleKunden")
-    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter})
+    @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
     public List<Kunde> alleKunden() {
         return kundeService.getKunden();
     }
@@ -36,7 +36,7 @@ public class KundeController {
     }
 
     @DeleteMapping("/api/KundeLöschen")
-    @RolesAllowed({Roles.User, Roles.Admin, Roles.Mitarbeiter})
+    @RolesAllowed({ Roles.Admin, Roles.Mitarbeiter})
     public ResponseEntity<Kunde> kundeLöschen(@Valid @RequestBody Long kundeId){
         Kunde kunde = kundeService.getKundenById(kundeId);
         kundeService.deleteKundenById(kundeId);
