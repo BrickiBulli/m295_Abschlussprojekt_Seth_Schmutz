@@ -21,9 +21,9 @@ public class Reservation {
     @Column
     private Date bisDatum;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(optional = false)
     private Fahrzeug fahrzeug;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private Kunde kunde;
 }

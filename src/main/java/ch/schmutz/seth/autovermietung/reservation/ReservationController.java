@@ -3,9 +3,7 @@ package ch.schmutz.seth.autovermietung.reservation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ch.schmutz.seth.autovermietung.security.Roles;
 
 import java.util.List;
@@ -26,9 +24,9 @@ public class ReservationController {
         return reservationService.getReservations();
     }
 
-    @GetMapping("/api/InsertReservation")
+    @PostMapping("/api/InsertReservation")
     @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
-    public Reservation insertReservation(@RequestParam Reservation reservation) {
+    public Reservation insertReservation(@RequestBody Reservation reservation) {
         return reservationService.insertReservation(reservation);
     }
 }

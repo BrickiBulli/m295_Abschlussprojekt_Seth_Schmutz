@@ -1,5 +1,6 @@
 package ch.schmutz.seth.autovermietung.kunde;
 
+import ch.schmutz.seth.autovermietung.reservation.Reservation;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,10 +11,10 @@ public class Kunde {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column()
     private String name;
 
-    @Column(nullable = false)
+    @Column()
     private String nachName;
 
     @Column
