@@ -25,7 +25,12 @@ public class KundeService {
     }
 
     public Kunde getKundenById(Long id) {
-        return repository.findById(id).orElse(null);
+        if(repository.existsById(id)) {
+
+            return repository.findById(id).orElse(null);
+        }else{
+            throw new IllegalArgumentException("Kunde id: " + id + " nicht gefunden");
+        }
     }
 
     public void deleteKundenById(Long id) {

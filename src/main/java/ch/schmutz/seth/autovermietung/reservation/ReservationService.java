@@ -4,6 +4,7 @@ import ch.schmutz.seth.autovermietung.kunde.Kunde;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ReservationService {
@@ -23,11 +24,21 @@ public class ReservationService {
     }
 
     public void deleteResservationByID(Long id) {
-         repository.deleteById(id);
+        if(repository.existsById(id)){
+
+            repository.deleteById(id);
+        } else{
+        throw new NoSuchElementException("Reservation id: " + id + " nicht gefunden");
+        }
     }
 
     public Reservation findReservationByID(Long id) {
-        return repository.findById(id).orElse(null);
+        if(repository.existsById(id)){
+
+            return repository.findById(id).orElse(null);
+        } else{
+        throw new NoSuchElementException("Reservation id: " + id + " nicht gefunden");
+        }
     }
 
     public List<Reservation> findReservationsByKeyCloakUser(String username) {
@@ -39,7 +50,7 @@ public class ReservationService {
             return repository.save(reservation);
         }
         else{
-            throw new IllegalArgumentException("Reservation id: " + id + " nicht gefunden");
+            throw new NoSuchElementException("Reservation id: " + id + " nicht gefunden");
         }
     }
 }

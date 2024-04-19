@@ -4,6 +4,7 @@ import ch.schmutz.seth.autovermietung.schaeden.Schaden;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class FahrzeugService {
@@ -23,14 +24,19 @@ public class FahrzeugService {
     }
 
     public Fahrzeug findFahrzeugById(Long id) {
-        return repository.findById(id).orElse(null);
+        if(repository.existsById(id)) {
+            return repository.findById(id).orElse(null);
+        }else{
+
+        throw new NoSuchElementException("Fahrzeug id: " + id + " nicht gefunden");
+        }
     }
 
     public void deleteFahrzeugById(Long id) {
         if(repository.existsById(id)) {
             repository.deleteById(id);
         }else{
-            throw new IllegalArgumentException("Kunde id: " + id + " nicht gefunden");
+            throw new NoSuchElementException("Fahrzeug id: " + id + " nicht gefunden");
         }
     }
 
@@ -39,7 +45,7 @@ public class FahrzeugService {
             return repository.save(fahrzeug);
         }
         else{
-            throw new IllegalArgumentException("Fahrzeug id: " + id + " nicht gefunden");
+            throw new NoSuchElementException("Fahrzeug id: " + id + " nicht gefunden");
         }
     }
 }

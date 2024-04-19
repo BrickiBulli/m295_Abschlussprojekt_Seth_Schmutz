@@ -5,6 +5,7 @@ import ch.schmutz.seth.autovermietung.reservation.Reservation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class SchadenService {
@@ -24,14 +25,19 @@ public class SchadenService {
     }
 
     public Schaden findSchadenById(Long id) {
-        return repository.findById(id).orElse(null);
+        if(repository.existsById(id)) {
+
+            return repository.findById(id).orElse(null);
+        }else{
+            throw new NoSuchElementException("Schaden id: " + id + " nicht gefunden");
+        }
     }
 
     public void deleteSchadenById(Long id) {
         if(repository.existsById(id)) {
             repository.deleteById(id);
         }else{
-            throw new IllegalArgumentException("Schaden id: " + id + " nicht gefunden");
+            throw new NoSuchElementException("Schaden id: " + id + " nicht gefunden");
         }
     }
 
@@ -40,7 +46,7 @@ public class SchadenService {
             return repository.save(schaden);
         }
         else{
-            throw new IllegalArgumentException("Schaden id: " + id + " nicht gefunden");
+            throw new NoSuchElementException("Schaden id: " + id + " nicht gefunden");
         }
     }
 }
