@@ -25,4 +25,15 @@ public class Fahrzeug {
 
     @Column
     private String rahmenNr;
+
+    public Fahrzeug(String marke, String model, String autoNr, String rahmenNr) {
+        this.marke = marke;
+        this.model = model;
+        this.autoNr = autoNr;
+        this.rahmenNr = rahmenNr;
+    }
+
+    public Fahrzeug() {
+
+    }
 }
