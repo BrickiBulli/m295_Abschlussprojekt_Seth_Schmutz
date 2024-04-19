@@ -1,0 +1,12 @@
+Neues Realm auf KeyCloak erstellen, Realm name ILV Enabled true;
+
+Neuen Client erstellen mit der Client ID: AbsschlussaufgabeClient;
+
+Valid redirect URL auf localhost:8090;
+
+Auf dem Client 3 Rollen erstellen ROLE_admin, ROLE_mitarbeiter und ROLE_user;
+
+Danach drei User erstellen: admin, mitarbeiter und user, alle mit passwort 2108 verseren;
+
+jeden user im Role mapping mit der gleich bennanten rolle einteilen;
+
