@@ -13,16 +13,19 @@ public class Schaden {
     private Long id;
 
     @Column
-    private int Schadensstaerke;
+    private String schadenArt;
+
+    @Column
+    private int schadensstaerke;
 
     @Column
     private String stelle;
 
     @Column
-    private Boolean ReperaturNotwendig;
+    private Boolean reperaturNotwendig;
 
     @Column
-    private Boolean VonMieterVerursacht;
+    private Boolean vonMieterVerursacht;
 
     @ManyToOne(optional = false)
     private Fahrzeug fahrzeug;

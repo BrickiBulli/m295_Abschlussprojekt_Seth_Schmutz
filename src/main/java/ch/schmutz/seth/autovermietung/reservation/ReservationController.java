@@ -46,9 +46,9 @@ public class ReservationController {
         return reservationService.insertReservation(reservation);
     }
 
-    @DeleteMapping("/api/DeleteReservation")
+    @DeleteMapping("/api/DeleteReservation/{id}")
     @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
-    public ResponseEntity<Reservation> deleteReservation(@RequestBody Long id) {
+    public ResponseEntity<Reservation> deleteReservation(@PathVariable Long id) {
         Reservation reservation = reservationService.findReservationByID(id);
         reservationService.deleteResservationByID(id);
         return new ResponseEntity<>(reservation, HttpStatus.OK);

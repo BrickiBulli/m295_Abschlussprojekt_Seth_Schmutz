@@ -17,7 +17,7 @@ public class Kunde {
     @Column()
     private String nachName;
 
-    @Column
+    @Column(unique = true)
     private String keyCloakUser;
 
     @Column

@@ -23,13 +23,13 @@ public class KundeController {
 
     KundeController(KundeService kundeService) {this.kundeService = kundeService;}
 
-    @GetMapping("api/AlleKunden")
+    @GetMapping("/api/AlleKunden")
     @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
     public List<Kunde> alleKunden() {
         return kundeService.getKunden();
     }
 
-    @PostMapping("api/KundeErstellen")
+    @PostMapping("/api/KundeErstellen")
     @RolesAllowed({Roles.Admin, Roles.Mitarbeiter})
     public Kunde kundenErstellen(@Valid @RequestBody Kunde kunde){
         return  kundeService.createKunde(kunde);

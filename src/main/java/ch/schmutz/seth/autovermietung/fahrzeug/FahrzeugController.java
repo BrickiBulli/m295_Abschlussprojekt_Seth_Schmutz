@@ -30,6 +30,12 @@ public class FahrzeugController {
         return fahrzeugService.getFahrzeuge();
     }
 
+    @GetMapping("api/FindFahrzeugById/{id}")
+    @RolesAllowed({Roles.Admin, Roles.User, Roles.Mitarbeiter})
+    public Fahrzeug GetEinFahrzeug(@PathVariable Long id) {
+        return fahrzeugService.findFahrzeugById(id);
+    }
+
     @PostMapping("api/InsertFahrzeug")
     @RolesAllowed({Roles.Admin, Roles.Mitarbeiter})
     public ResponseEntity<Fahrzeug> insertFahrzeug(@Valid @RequestBody Fahrzeug fahrzeug) {
@@ -37,9 +43,9 @@ public class FahrzeugController {
         return new ResponseEntity<>(savedFahrzeug, HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/DeleteFahrzeug")
+    @DeleteMapping("/api/DeleteFahrzeug/{id}")
     @RolesAllowed({Roles.Admin, Roles.Mitarbeiter, Roles.User})
-    public ResponseEntity<Fahrzeug> deleteReservation(@RequestBody Long id) {
+    public ResponseEntity<Fahrzeug> deleteReservation(@PathVariable Long id) {
         Fahrzeug fahrzeug = fahrzeugService.findFahrzeugById(id);
         fahrzeugService.deleteFahrzeugById(id);
         return new ResponseEntity<>(fahrzeug, HttpStatus.OK);

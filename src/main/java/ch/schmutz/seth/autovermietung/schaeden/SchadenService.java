@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 @Service
 public class SchadenService {
@@ -47,6 +48,18 @@ public class SchadenService {
         }
         else{
             throw new NoSuchElementException("Schaden id: " + id + " nicht gefunden");
+        }
+    }
+
+    public List<Schaden> getSchaedenByFahrzeugId(Long fahrzeugId) {
+        return repository.findByFahrzeug_Id(fahrzeugId);
+    }
+
+    public Schaden getSchadenById(Long id) {
+        if(repository.existsById(id)){
+            return repository.findById(id).orElse(null);
+        }else{
+        throw new NoSuchElementException("Schaden id: " + id + " nicht gefunden");
         }
     }
 }
